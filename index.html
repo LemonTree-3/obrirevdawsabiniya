@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffc1d9">
+  <title>Biochemical Energy Production | Pink Study Date</title>
+
+  <style>
+    :root {
+      --pink-bg: #ffe6f0;
+      --pink-soft: #fff4f8;
+      --pink-mid: #ffc1d9;
+      --pink-main: #f28db9;
+      --pink-deep: #df6299;
+      --pink-line: #f2a9c8;
+      --ink: #21151b;
+      --muted: #604a54;
+      --white: #fffafd;
+      --mint: #ddf4e8;
+      --mint-line: #75bd98;
+      --rose-wrong: #ffd9e3;
+      --wrong-line: #e36e8b;
+      --shadow: 0 14px 35px rgba(152, 65, 103, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 8% 5%, rgba(255,255,255,.85) 0 4px, transparent 5px),
+        radial-gradient(circle at 92% 18%, rgba(255,255,255,.75) 0 6px, transparent 7px),
+        linear-gradient(145deg, #ffd4e5 0%, #ffeaf2 44%, #ffc9df 100%);
+      background-attachment: fixed;
+      color: var(--ink);
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .page {
+      width: min(100% - 28px, 980px);
+      margin: 0 auto;
+      padding: 28px 0 54px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      background: rgba(255,250,253,.92);
+      border: 2px solid #fff;
+      border-radius: 30px;
+      padding: 34px 24px 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "♡";
+      position: absolute;
+      color: #f5b0cd;
+      opacity: .6;
+      font-size: 76px;
+      line-height: 1;
+    }
+
+    .hero::before {
+      left: 20px;
+      top: 10px;
+      transform: rotate(-16deg);
+    }
+
+    .hero::after {
+      right: 23px;
+      bottom: 0;
+      transform: rotate(14deg);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      border: 1px solid var(--pink-line);
+      background: #ffe4ef;
+      border-radius: 99px;
+      padding: 6px 13px;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      position: relative;
+      margin: 15px 0 8px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 5vw, 3.45rem);
+      line-height: 1.08;
+      letter-spacing: -.035em;
+    }
+
+    .subtitle {
+      max-width: 650px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .hero-hearts {
+      margin-top: 14px;
+      letter-spacing: .35em;
+      color: var(--pink-deep);
+      font-size: 1.2rem;
+    }
+
+    .overview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 14px 10px;
+      background: rgba(255,250,253,.88);
+      border: 1px solid white;
+      border-radius: 18px;
+      box-shadow: 0 6px 20px rgba(152,65,103,.07);
+    }
+
+    .stat strong {
+      display: block;
+      font-family: Georgia, serif;
+      font-size: 1.55rem;
+    }
+
+    .stat span {
+      font-size: .82rem;
+      color: var(--muted);
+    }
+
+    .progress-wrap {
+      background: rgba(255,250,253,.9);
+      padding: 14px 17px;
+      border: 1px solid #fff;
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: .88rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .progress-track {
+      height: 10px;
+      border-radius: 99px;
+      background: #f8d0e1;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #ee83b2, #d95796);
+      transition: width .25s ease;
+    }
+
+    #result {
+      display: none;
+      padding: 22px;
+      background: #fffafd;
+      border: 2px solid white;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      margin: 0 0 20px;
+      text-align: center;
+    }
+
+    #result h2 {
+      font-family: Georgia, serif;
+      margin: 0 0 4px;
+      font-size: 1.8rem;
+    }
+
+    .score-number {
+      font-size: clamp(2.4rem, 7vw, 4rem);
+      font-family: Georgia, serif;
+      font-weight: 800;
+      color: var(--pink-deep);
+      line-height: 1.2;
+    }
+
+    #result p {
+      margin: 6px 0;
+    }
+
+    .review-note {
+      font-size: .88rem;
+      color: var(--muted);
+    }
+
+    #questionList {
+      display: grid;
+      gap: 14px;
+    }
+
+    .question-card {
+      background: rgba(255,250,253,.96);
+      border: 1.5px solid white;
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: 0 7px 22px rgba(152,65,103,.08);
+      scroll-margin-top: 18px;
+    }
+
+    .q-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .q-number {
+      display: inline-flex;
+      width: 37px;
+      height: 37px;
+      flex: 0 0 37px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 13px;
+      background: #ffd4e5;
+      border: 1px solid #f7b2cf;
+      font-weight: 900;
+    }
+
+    .category {
+      font-size: .76rem;
+      font-weight: 800;
+      color: #694451;
+      background: #ffeaf2;
+      border: 1px solid #f7c3d8;
+      padding: 5px 9px;
+      border-radius: 99px;
+    }
+
+    .mode {
+      margin-left: auto;
+      font-size: .73rem;
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 5px 9px;
+      border-radius: 99px;
+      background: #f9d3e4;
+      border: 1px solid #eea2c4;
+    }
+
+    .q-text {
+      margin: 0 0 13px;
+      font-size: 1.06rem;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .options {
+      display: grid;
+      gap: 9px;
+    }
+
+    .option {
+      display: flex;
+      gap: 11px;
+      align-items: flex-start;
+      border: 1px solid #f3c2d6;
+      border-radius: 14px;
+      padding: 11px 12px;
+      cursor: pointer;
+      background: #fff9fc;
+      transition: background .18s, border-color .18s, transform .18s;
+    }
+
+    .option:hover {
+      background: #ffeaf3;
+      border-color: #e98bb4;
+      transform: translateY(-1px);
+    }
+
+    .option input {
+      accent-color: #df6299;
+      width: 17px;
+      height: 17px;
+      margin: 3px 0 0;
+      flex: 0 0 17px;
+      cursor: pointer;
+    }
+
+    .option-text {
+      flex: 1;
+      font-size: .95rem;
+    }
+
+    .option.correct {
+      background: var(--mint);
+      border-color: var(--mint-line);
+    }
+
+    .option.wrong-picked {
+      background: var(--rose-wrong);
+      border-color: var(--wrong-line);
+    }
+
+    .option input:disabled {
+      cursor: default;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 13px;
+      padding: 13px 14px;
+      border-radius: 14px;
+      background: #fff0f6;
+      border: 1px dashed #e89abc;
+      font-size: .91rem;
+    }
+
+    .feedback strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .bottom-actions {
+      display: flex;
+      gap: 11px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .btn {
+      border: 2px solid var(--pink-deep);
+      border-radius: 999px;
+      padding: 12px 22px;
+      cursor: pointer;
+      font-weight: 900;
+      color: var(--ink);
+      background: var(--pink-mid);
+      box-shadow: 0 5px 0 #eaa0bf;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 #eaa0bf;
+    }
+
+    .btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 3px 0 #eaa0bf;
+    }
+
+    .btn.secondary {
+      background: #fffafd;
+      border-color: #f0a8c8;
+      box-shadow: 0 5px 0 #f4c5d9;
+    }
+
+    .footer {
+      text-align: center;
+      color: #5b3b49;
+      padding: 24px 8px 0;
+      font-size: .85rem;
+    }
+
+    .footer .tiny-heart {
+      color: #d95796;
+      font-size: 1.15rem;
+    }
+
+    @media (max-width: 620px) {
+      .page {
+        width: min(100% - 18px, 980px);
+        padding-top: 10px;
+      }
+
+      .hero {
+        border-radius: 23px;
+        padding: 28px 15px 22px;
+      }
+
+      .hero::before {
+        left: 8px;
+        top: 4px;
+        font-size: 43px;
+      }
+
+      .hero::after {
+        right: 8px;
+        font-size: 43px;
+      }
+
+      .overview {
+        gap: 7px;
+      }
+
+      .stat {
+        border-radius: 14px;
+        padding: 11px 5px;
+      }
+
+      .stat strong {
+        font-size: 1.27rem;
+      }
+
+      .stat span {
+        font-size: .73rem;
+      }
+
+      .question-card {
+        padding: 15px;
+        border-radius: 18px;
+      }
+
+      .q-text {
+        font-size: 1rem;
+      }
+
+      .option {
+        padding: 10px;
+      }
+
+      .mode {
+        margin-left: 0;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .page {
+        width: 100%;
+        padding: 0;
+      }
+
+      .hero,
+      .stat,
+      .question-card,
+      .progress-wrap,
+      #result {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      .bottom-actions {
+        display: none;
+      }
+
+      .question-card {
+        border: 1px solid #d7a1b8;
+      }
+
+      .option {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <header class="hero">
+      <span class="eyebrow">A cute little study session</span>
+      <h1>Biochemical Energy Production ♡</h1>
+      <p class="subtitle">
+        A 50-question self-assessment based on Chapter 23:
+        <strong>Biochemical Energy Production</strong>.
+        Take your time, trust what you studied, and learn from every answer.
+      </p>
+      <div class="hero-hearts" aria-hidden="true">♡ ✿ ♡ ✿ ♡</div>
+    </header>
+
+    <section class="overview" aria-label="Quiz details">
+      <div class="stat">
+        <strong>50</strong>
+        <span>Questions</span>
+      </div>
+      <div class="stat">
+        <strong>♡</strong>
+        <span>Pink study vibes</span>
+      </div>
+      <div class="stat">
+        <strong>1 pt</strong>
+        <span>Each question</span>
+      </div>
+    </section>
+
+    <section class="progress-wrap" aria-label="Answer progress">
+      <div class="progress-top">
+        <span>Your progress</span>
+        <span id="progressText">0 of 50 answered</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </section>
+
+    <section id="result" aria-live="polite">
+      <h2>Your study results ♡</h2>
+      <div class="score-number" id="scoreNumber">0 / 50</div>
+      <p id="scoreMessage"></p>
+      <p class="review-note" id="scoreDetail"></p>
+    </section>
+
+    <section id="questionList" aria-label="50 multiple choice questions"></section>
+
+    <div class="bottom-actions">
+      <button class="btn" id="submitBtn" type="button">
+        Check my answers ♡
+      </button>
+      <button class="btn secondary" id="resetBtn" type="button">
+        Start over
+      </button>
+    </div>
+
+    <footer class="footer">
+      Made with a little pink and lots of love
+      <span class="tiny-heart">♥</span>
+      <br>
+      <span>Study source: Chapter 23, Biochemical Energy Production.</span>
+    </footer>
+
+  </main>
+
+  <script>
+    const questions = [
+      {
+        category: "Metabolism",
+        mode: "single",
+        q: "What is metabolism?",
+        options: [
+          "The sum total of all chemical reactions in a living organism",
+          "Only the process of digesting food in the stomach",
+          "The movement of blood through the body",
+          "The removal of oxygen from the atmosphere"
+        ],
+        answers: [0],
+        explanation: "Metabolism is the sum total of all chemical reactions in a living organism. These processes help provide energy, growth substances, and cell repair."
+      },
+      {
+        category: "Metabolism",
+        mode: "multi",
+        q: "According to the lesson, what does metabolism help provide or support? Select all that apply.",
+        options: [
+          "Energy for body activities",
+          "Growth substances",
+          "Cell repair",
+          "Cellular processes such as protein synthesis and DNA replication",
+          "The permanent stopping of all chemical reactions"
+        ],
+        answers: [0, 1, 2, 3],
+        explanation: "Metabolism provides energy and substances needed for growth and cell repair. Energy is also needed for processes such as protein synthesis, DNA replication, RNA transcription, and transport across membranes."
+      },
+      {
+        category: "Catabolism and Anabolism",
+        mode: "single",
+        q: "What happens during catabolism?",
+        options: [
+          "Small molecules are joined to form larger molecules",
+          "Biochemical molecules are broken down into smaller ones, usually releasing energy",
+          "DNA is copied without any chemical reactions",
+          "Food is absorbed without being digested"
+        ],
+        answers: [1],
+        explanation: "Catabolism breaks biochemical molecules into smaller ones and usually releases energy."
+      },
+      {
+        category: "Catabolism and Anabolism",
+        mode: "single",
+        q: "What happens during anabolism?",
+        options: [
+          "Large molecules are broken down to smaller molecules",
+          "All stored energy is released as heat",
+          "Small biochemical molecules are joined to form larger ones, usually requiring energy",
+          "The electron transport chain stops working"
+        ],
+        answers: [2],
+        explanation: "Anabolism joins small biochemical molecules to form larger molecules and usually requires energy. Protein synthesis is one example."
+      },
+      {
+        category: "Catabolism and Anabolism",
+        mode: "single",
+        q: "The oxidation of glucose is an example of which process?",
+        options: [
+          "Anabolism",
+          "Catabolism",
+          "Absorption",
+          "Nucleotide formation only"
+        ],
+        answers: [1],
+        explanation: "The lecture gives oxidation of glucose as an example of catabolism because a molecule is broken down through reactions that release energy."
+      },
+      {
+        category: "Metabolic Pathways",
+        mode: "single",
+        q: "A metabolic pathway is _____.",
+        options: [
+          "A series of consecutive biochemical reactions that convert a starting material into an end product",
+          "A single reaction that never has a product",
+          "The movement of nutrients through blood vessels only",
+          "A cell structure that makes proteins"
+        ],
+        answers: [0],
+        explanation: "A metabolic pathway consists of consecutive biochemical reactions that convert a starting material into an end product."
+      },
+      {
+        category: "Metabolic Pathways",
+        mode: "single",
+        q: "Which two major types of metabolic pathways are shown in the lesson?",
+        options: [
+          "Aerobic and anaerobic only",
+          "Digestion and absorption",
+          "Linear and cyclic",
+          "Nuclear and cytoplasmic"
+        ],
+        answers: [2],
+        explanation: "The lesson identifies two major types of metabolic pathways: linear and cyclic."
+      },
+      {
+        category: "Catabolism and Anabolism",
+        mode: "single",
+        q: "Synthesis of a protein from amino acids is classified as _____.",
+        options: [
+          "Catabolic",
+          "Anabolic",
+          "Vehicle transmission",
+          "Oxidative phosphorylation"
+        ],
+        answers: [1],
+        explanation: "Protein synthesis joins smaller amino-acid molecules into a larger molecule, so it is anabolic."
+      },
+      {
+        category: "Catabolism and Anabolism",
+        mode: "single",
+        q: "Formation of a triacylglycerol from glycerol and fatty acids is _____.",
+        options: [
+          "Anabolic",
+          "Catabolic",
+          "A stage of the electron transport chain",
+          "A form of digestion by hydrolysis"
+        ],
+        answers: [0],
+        explanation: "The lesson classifies formation of a triacylglycerol from glycerol and fatty acids as anabolic."
+      },
+      {
+        category: "Catabolism and Anabolism",
+        mode: "single",
+        q: "Hydrolysis of a polysaccharide into monosaccharides is classified as _____.",
+        options: [
+          "Anabolic",
+          "Catabolic",
+          "Cyclic",
+          "Oxidative phosphorylation"
+        ],
+        answers: [1],
+        explanation: "Hydrolysis breaks a larger carbohydrate into smaller monosaccharides, making it catabolic."
+      },
+      {
+        category: "Cell Structures",
+        mode: "single",
+        q: "Which cell structure is associated with DNA replication and RNA synthesis in the lesson?",
+        options: [
+          "Lysosome",
+          "Plasma membrane",
+          "Nucleus",
+          "Mitochondrial outer membrane"
+        ],
+        answers: [2],
+        explanation: "The lesson identifies the nucleus as the site associated with DNA replication and RNA synthesis."
+      },
+      {
+        category: "Cell Structures",
+        mode: "single",
+        q: "What is the main role of the plasma membrane in the lesson's overview of cell structures?",
+        options: [
+          "Cellular boundary",
+          "Protein synthesis",
+          "Digestion of all food outside the body",
+          "Production of bile"
+        ],
+        answers: [0],
+        explanation: "The plasma membrane serves as the cellular boundary."
+      },
+      {
+        category: "Cell Structures",
+        mode: "single",
+        q: "The cytoplasm is described as _____.",
+        options: [
+          "The location of all DNA in every cell",
+          "The water-based material of a eukaryotic cell",
+          "A coenzyme derived from vitamin B5",
+          "A product of the citric acid cycle"
+        ],
+        answers: [1],
+        explanation: "The lesson describes cytoplasm as the water-based material of a eukaryotic cell."
+      },
+      {
+        category: "Cell Structures",
+        mode: "single",
+        q: "Which organelle contains hydrolytic enzymes needed for cell rebuilding, repair, and degradation?",
+        options: [
+          "Ribosome",
+          "Nucleus",
+          "Lysosome",
+          "Plasma membrane"
+        ],
+        answers: [2],
+        explanation: "Lysosomes contain hydrolytic enzymes involved in cell rebuilding, repair, and degradation."
+      },
+      {
+        category: "Cell Structures",
+        mode: "single",
+        q: "Which structures are identified as sites for protein synthesis?",
+        options: [
+          "Ribosomes",
+          "Cristae only",
+          "Lysosomes",
+          "Outer mitochondrial membranes"
+        ],
+        answers: [0],
+        explanation: "Ribosomes are the sites for protein synthesis."
+      },
+      {
+        category: "Mitochondria",
+        mode: "single",
+        q: "Which organelle generates most of the energy needed for a cell?",
+        options: [
+          "Lysosome",
+          "Mitochondrion",
+          "Nucleus",
+          "Ribosome"
+        ],
+        answers: [1],
+        explanation: "The lesson identifies mitochondria as organelles responsible for generating most of the energy needed by a cell."
+      },
+      {
+        category: "Mitochondria",
+        mode: "single",
+        q: "Which statement about the inner mitochondrial membrane matches the lecture?",
+        options: [
+          "It is highly impermeable to most substances and is about 20% lipid and 80% protein",
+          "It is made only of carbohydrates",
+          "It is freely permeable to all substances",
+          "It contains no proteins"
+        ],
+        answers: [0],
+        explanation: "The slide describes the inner mitochondrial membrane as highly impermeable to most substances, with approximately 20% lipid and 80% protein."
+      },
+      {
+        category: "Mitochondria",
+        mode: "single",
+        q: "What is the purpose of the inner membrane's folds, called cristae?",
+        options: [
+          "To store digestive enzymes in the stomach",
+          "To increase the surface area of the inner membrane",
+          "To make the plasma membrane unnecessary",
+          "To convert amino acids directly into DNA"
+        ],
+        answers: [1],
+        explanation: "The inner membrane folds into cristae, increasing the available surface area. The slide also states that ATP synthesis occurs on the inner membrane."
+      },
+      {
+        category: "High-Energy Compounds",
+        mode: "single",
+        q: "Why are certain phosphate-containing compounds called high-energy compounds?",
+        options: [
+          "Their hydrolysis releases relatively large amounts of free energy",
+          "They cannot take part in chemical reactions",
+          "They contain no phosphate groups",
+          "They only function outside cells"
+        ],
+        answers: [0],
+        explanation: "The lesson explains that high-energy compounds have greater free energy of hydrolysis than typical compounds. Their strained bonds can release energy when hydrolyzed."
+      },
+      {
+        category: "ATP and Phosphates",
+        mode: "single",
+        q: "Which components make up ATP?",
+        options: [
+          "Glycerol, three fatty acids, and glucose",
+          "Adenine, ribose, and three phosphate groups",
+          "Amino acids and a sulfhydryl group only",
+          "Glucose and two fatty acids"
+        ],
+        answers: [1],
+        explanation: "ATP is adenosine triphosphate. It contains adenine, ribose, and three phosphate groups."
+      },
+      {
+        category: "ATP and Phosphates",
+        mode: "single",
+        q: "Which reaction represents the hydrolysis of ATP into ADP and inorganic phosphate, as shown in the lesson?",
+        options: [
+          "ADP + Pi → ATP, with no energy involved",
+          "ATP + H₂O → ADP + Pi + energy",
+          "Glucose + oxygen → ATP only, with no other products",
+          "AMP → DNA + RNA"
+        ],
+        answers: [1],
+        explanation: "The slide shows ATP hydrolysis as ATP + H₂O → ADP + Pi, with energy released."
+      },
+      {
+        category: "ATP and Phosphates",
+        mode: "multi",
+        q: "Which compounds are presented as a group involved in the storage or transfer of energy and phosphate groups? Select all that apply.",
+        options: [
+          "ATP",
+          "ADP",
+          "AMP",
+          "FADH₂ only",
+          "H₂O only"
+        ],
+        answers: [0, 1, 2],
+        explanation: "The classification diagram groups ATP, ADP, and AMP as intermediates for storage of energy and transfer of phosphate groups."
+      },
+      {
+        category: "NAD",
+        mode: "single",
+        q: "Which statement about NAD⁺ and NADH is correct?",
+        options: [
+          "NAD⁺ is the reduced form, and NADH is the oxidized form",
+          "NAD⁺ is the oxidized form, and NADH is the reduced form",
+          "Both are forms of ATP",
+          "Neither participates in oxidation-reduction reactions"
+        ],
+        answers: [1],
+        explanation: "The lecture identifies NAD⁺ as the oxidized form and NADH as the reduced form of the coenzyme."
+      },
+      {
+        category: "NAD and FAD",
+        mode: "single",
+        q: "What is FADH₂ in relation to FAD?",
+        options: [
+          "The reduced form of FAD",
+          "The oxidized form of NAD",
+          "A type of mitochondrial membrane",
+          "A product of protein hydrolysis"
+        ],
+        answers: [0],
+        explanation: "FAD is the oxidized form, while FADH₂ is its reduced form. FAD participates in oxidation-reduction reactions."
+      },
+      {
+        category: "Coenzyme A",
+        mode: "single",
+        q: "Coenzyme A is described as a derivative of which vitamin?",
+        options: [
+          "Vitamin A",
+          "Vitamin B₅",
+          "Vitamin C",
+          "Vitamin D"
+        ],
+        answers: [1],
+        explanation: "The slide states that coenzyme A is a derivative of vitamin B₅."
+      },
+      {
+        category: "Coenzyme A",
+        mode: "single",
+        q: "Which functional group is highlighted as the active form of coenzyme A in the lecture?",
+        options: [
+          "A phosphate group only",
+          "A carboxyl group only",
+          "A sulfhydryl group (–SH)",
+          "A peptide bond"
+        ],
+        answers: [2],
+        explanation: "The active form of coenzyme A is described as having a sulfhydryl group (–SH) in the ethanethiol subunit."
+      },
+      {
+        category: "Metabolic Intermediates",
+        mode: "single",
+        q: "Acetyl-CoA is formed when _____.",
+        options: [
+          "An acetyl group becomes attached to coenzyme A",
+          "ATP loses all of its adenine",
+          "A ribosome becomes part of the nucleus",
+          "Water is converted directly into glucose"
+        ],
+        answers: [0],
+        explanation: "The lecture describes acetyl-CoA as coenzyme A with an acetyl group attached. It is an important product of the acetyl group formation stage."
+      },
+      {
+        category: "Metabolic Intermediates",
+        mode: "multi",
+        q: "Which sets of compounds are shown as metabolic intermediates involved in energy transfer? Select all that apply.",
+        options: [
+          "ATP, ADP, and AMP for energy storage and phosphate transfer",
+          "FAD and FADH₂ for electron transfer",
+          "NAD⁺ and NADH for electron transfer",
+          "H–S–CoA and acetyl-CoA for acetyl-group transfer",
+          "Ribosomes and lysosomes as interchangeable energy carriers"
+        ],
+        answers: [0, 1, 2, 3],
+        explanation: "The slide groups metabolic intermediates by their role in transferring energy/phosphate groups, electrons, or acetyl groups."
+      },
+      {
+        category: "Energy Production Stages",
+        mode: "single",
+        q: "According to the overview, energy needed by the human body is obtained from _____.",
+        options: [
+          "Food",
+          "Sunlight directly absorbed by human cells",
+          "The atmosphere alone",
+          "The removal of all cellular water"
+        ],
+        answers: [0],
+        explanation: "The lesson states that the energy needed to run the human body is obtained from food."
+      },
+      {
+        category: "Digestion",
+        mode: "single",
+        q: "Where does digestion begin according to the lesson?",
+        options: [
+          "Small intestine",
+          "Mouth",
+          "Mitochondrial matrix",
+          "Bloodstream"
+        ],
+        answers: [1],
+        explanation: "Digestion begins in the mouth, where saliva contains starch-digesting enzymes. It continues in the stomach and is completed in the small intestine."
+      },
+      {
+        category: "Digestion",
+        mode: "multi",
+        q: "Which are end products of digestion listed in the lecture? Select all that apply.",
+        options: [
+          "Glucose and other monosaccharides from carbohydrates",
+          "Amino acids from proteins",
+          "Fatty acids and glycerol from fats and oils",
+          "Intact triacylglycerols as the only products of fat digestion",
+          "Intact proteins as the only products of protein digestion"
+        ],
+        answers: [0, 1, 2],
+        explanation: "The listed digestion products are glucose and other monosaccharides from carbohydrates, amino acids from proteins, and fatty acids and glycerol from fats and oils."
+      },
+      {
+        category: "Absorption",
+        mode: "single",
+        q: "What is absorption in the context of digestion?",
+        options: [
+          "Breaking all nutrients into atoms",
+          "Getting digested molecules into the bloodstream and ultimately into cells",
+          "Producing acetyl-CoA inside the nucleus",
+          "Moving electrons directly into food"
+        ],
+        answers: [1],
+        explanation: "Absorption is the process of getting digested molecules into the bloodstream and eventually into the cells where metabolism occurs."
+      },
+      {
+        category: "Absorption",
+        mode: "single",
+        q: "The slide identifies finger-like projections in the small intestine as _____.",
+        options: [
+          "Cristae",
+          "Villi",
+          "Ribosomes",
+          "Coenzymes"
+        ],
+        answers: [1],
+        explanation: "The villi are finger-like projections lining the small intestine. The lesson notes that each villus has a rich blood-vessel network and a central lymph vessel."
+      },
+      {
+        category: "Energy Production Stages",
+        mode: "single",
+        q: "Which stage follows digestion in the four general stages of biochemical energy production?",
+        options: [
+          "Stage 4: Electron transport chain and oxidative phosphorylation",
+          "Stage 2: Acetyl group formation",
+          "Stage 3: Citric acid cycle",
+          "Stage 1: Digestion again"
+        ],
+        answers: [1],
+        explanation: "The four stages are Stage 1 digestion, Stage 2 acetyl group formation, Stage 3 citric acid cycle, and Stage 4 electron transport chain and oxidative phosphorylation."
+      },
+      {
+        category: "Acetyl Group Formation",
+        mode: "single",
+        q: "What is the primary end product of the oxidation reactions in Stage 2?",
+        options: [
+          "Acetyl-CoA",
+          "DNA",
+          "Glycogen only",
+          "Oxygen gas only"
+        ],
+        answers: [0],
+        explanation: "Stage 2 further oxidizes small molecules from digestion. The primary products include acetyl units attached to coenzyme A to form acetyl-CoA and the reduced coenzyme NADH."
+      },
+      {
+        category: "Acetyl Group Formation",
+        mode: "multi",
+        q: "Which statements about Stage 2, acetyl group formation, match the lesson? Select all that apply.",
+        options: [
+          "Small molecules from Stage 1 are further oxidized",
+          "Acetyl units become attached to coenzyme A to form acetyl-CoA",
+          "NADH is produced as a reduced coenzyme",
+          "Related reactions occur in the cytosol for glucose metabolism and in mitochondria for fatty acid metabolism",
+          "The stage takes place only in the stomach"
+        ],
+        answers: [0, 1, 2, 3],
+        explanation: "The slide describes further oxidation of small molecules, production of acetyl-CoA and NADH, and related reactions in the cytosol and mitochondria depending on the fuel being metabolized."
+      },
+      {
+        category: "Citric Acid Cycle",
+        mode: "single",
+        q: "Where does the citric acid cycle take place, according to the lesson?",
+        options: [
+          "Inside the mitochondria",
+          "In the small intestine lumen",
+          "Only on ribosomes",
+          "Outside the body"
+        ],
+        answers: [0],
+        explanation: "The slide states that Stage 3, the citric acid cycle, takes place inside the mitochondria."
+      },
+      {
+        category: "Citric Acid Cycle",
+        mode: "single",
+        q: "During the citric acid cycle, the acetyl group is oxidized to produce _____.",
+        options: [
+          "Carbon dioxide (CO₂)",
+          "Only glucose",
+          "Amino acids",
+          "Intestinal villi"
+        ],
+        answers: [0],
+        explanation: "During Stage 3, the acetyl group is oxidized to produce CO₂, which is eliminated during breathing."
+      },
+      {
+        category: "Citric Acid Cycle",
+        mode: "multi",
+        q: "Which statements about Stage 3, the citric acid cycle, are supported by the slide? Select all that apply.",
+        options: [
+          "It takes place in mitochondria",
+          "It produces CO₂ from oxidation of acetyl groups",
+          "Much of the energy is carried by reduced NADH and FADH₂ to Stage 4",
+          "Some energy produced is lost as heat",
+          "Its main purpose is to absorb nutrients through villi"
+        ],
+        answers: [0, 1, 2, 3],
+        explanation: "The lesson says the citric acid cycle occurs in mitochondria, releases CO₂, transfers much of the energy through reduced NADH and FADH₂, and loses some energy as heat."
+      },
+      {
+        category: "Citric Acid Cycle",
+        mode: "single",
+        q: "Which sequence best follows the cycle intermediates shown in the lesson after citrate?",
+        options: [
+          "Citrate → isocitrate → α-ketoglutarate → succinyl-CoA → succinate",
+          "Citrate → glucose → villi → ATP synthase",
+          "Citrate → ribosome → nucleus → lysosome",
+          "Citrate → NAD⁺ → mouth → oxygen"
+        ],
+        answers: [0],
+        explanation: "The diagram shows citrate proceeding through isocitrate, α-ketoglutarate, succinyl-CoA, and succinate, then through fumarate and malate back to oxaloacetate."
+      },
+      {
+        category: "Electron Transport Chain",
+        mode: "single",
+        q: "Where does Stage 4, the electron transport chain and oxidative phosphorylation, take place?",
+        options: [
+          "Mitochondria",
+          "Stomach",
+          "Small intestine",
+          "Nucleus only"
+        ],
+        answers: [0],
+        explanation: "The lesson locates Stage 4 in the mitochondria."
+      },
+      {
+        category: "Electron Transport Chain",
+        mode: "single",
+        q: "At the beginning of Stage 4, NADH and FADH₂ are oxidized to release _____.",
+        options: [
+          "Glucose and amino acids",
+          "H⁺ and electrons",
+          "Villi and enzymes",
+          "Acetyl groups and DNA"
+        ],
+        answers: [1],
+        explanation: "The lesson states that NADH and FADH₂ are oxidized to release H⁺ and electrons."
+      },
+      {
+        category: "Electron Transport Chain",
+        mode: "single",
+        q: "According to the overview, where are H⁺ ions transported during Stage 4?",
+        options: [
+          "Into the intestinal lumen",
+          "Into the mitochondrial intermembrane space",
+          "Into the nucleus for DNA replication",
+          "Outside the cell through ribosomes"
+        ],
+        answers: [1],
+        explanation: "The slide says H⁺ ions are transported to the intermembrane space of the mitochondria."
+      },
+      {
+        category: "Electron Transport Chain",
+        mode: "single",
+        q: "In the electron transport chain, electrons are ultimately transferred to oxygen, which is reduced to form _____.",
+        options: [
+          "Water (H₂O)",
+          "Acetyl-CoA",
+          "Glucose",
+          "Triacylglycerol"
+        ],
+        answers: [0],
+        explanation: "The slide states that electrons are transferred to O₂, which is reduced to H₂O."
+      },
+      {
+        category: "Oxidative Phosphorylation",
+        mode: "single",
+        q: "What happens when H⁺ ions re-enter the mitochondrial matrix during Stage 4?",
+        options: [
+          "They drive ATP synthase to produce ATP",
+          "They break ribosomes into amino acids",
+          "They convert villi into mitochondria",
+          "They stop all electron movement"
+        ],
+        answers: [0],
+        explanation: "The H⁺ ions re-enter the mitochondrial matrix and drive ATP synthase, resulting in ATP production."
+      },
+      {
+        category: "Oxidative Phosphorylation",
+        mode: "single",
+        q: "Which statement about ATP matches the lesson?",
+        options: [
+          "ATP is the primary energy carrier in metabolic pathways",
+          "ATP is used only to build the outer mitochondrial membrane",
+          "ATP is a type of digestive enzyme",
+          "ATP cannot transfer energy to cellular reactions"
+        ],
+        answers: [0],
+        explanation: "The slide identifies ATP as the primary energy carrier in metabolic pathways."
+      },
+      {
+        category: "Electron Transport Chain",
+        mode: "multi",
+        q: "Which electron transport chain complexes are named in the diagram? Select all that apply.",
+        options: [
+          "Complex I: NADH–coenzyme Q reductase",
+          "Complex II: Succinate–coenzyme Q reductase",
+          "Complex III: Coenzyme Q–cytochrome c reductase",
+          "Complex IV: Cytochrome c oxidase",
+          "Complex V: Lysosomal phosphate synthase"
+        ],
+        answers: [0, 1, 2, 3],
+        explanation: "The diagram names Complexes I through IV as NADH–coenzyme Q reductase, succinate–coenzyme Q reductase, coenzyme Q–cytochrome c reductase, and cytochrome c oxidase."
+      },
+      {
+        category: "Energy Production Overview",
+        mode: "multi",
+        q: "Which statements summarize the common metabolic pathways described in the lesson? Select all that apply.",
+        options: [
+          "Stages 3 and 4 are common to the processing of carbohydrates, fats, and proteins",
+          "The citric acid cycle and electron transport chain are parts of the common pathways",
+          "Food molecules undergo processes that help transfer energy into ATP",
+          "Digestion alone produces all the ATP needed for every cellular activity",
+          "Metabolism has no connection to cellular work"
+        ],
+        answers: [0, 1, 2],
+        explanation: "The lesson describes the citric acid cycle and electron transport chain/oxidative phosphorylation as common pathways involved in processing carbohydrates, fats, and proteins, transferring energy into ATP."
+      },
+      {
+        category: "Chemical Processes Before Metabolism",
+        mode: "single",
+        q: "What is digestion, as described in the final slide?",
+        options: [
+          "The breakdown of food molecules by hydrolysis into simpler chemicals that can be used in metabolic processes",
+          "The synthesis of proteins from amino acids only",
+          "The transfer of electrons to oxygen in the mitochondria",
+          "The transport of H⁺ through ATP synthase"
+        ],
+        answers: [0],
+        explanation: "The lecture defines digestion as the breakdown of food molecules by hydrolysis into simpler chemicals usable in metabolic processes."
+      },
+      {
+        category: "Chemical Processes Before Metabolism",
+        mode: "single",
+        q: "Which statement correctly distinguishes digestion from absorption?",
+        options: [
+          "Digestion breaks food into simpler chemicals; absorption moves the digested molecules into the bloodstream and eventually cells",
+          "Digestion happens only in mitochondria; absorption happens only in the nucleus",
+          "Digestion produces electrons; absorption produces oxygen gas",
+          "They are identical terms for ATP hydrolysis"
+        ],
+        answers: [0],
+        explanation: "Digestion breaks food molecules into simpler chemicals. Absorption moves the resulting molecules into the bloodstream and ultimately to the cells where metabolism occurs."
+      }
+    ];
+
+    const questionList = document.getElementById('questionList');
+    const progressText = document.getElementById('progressText');
+    const progressFill = document.getElementById('progressFill');
+    const result = document.getElementById('result');
+    let submitted = false;
+
+    function renderQuestions() {
+      questionList.innerHTML = questions.map((item, index) => {
+        const inputType = item.mode === 'multi' ? 'checkbox' : 'radio';
+        const modeLabel = item.mode === 'multi'
+          ? 'Select all that apply'
+          : 'Single choice';
+
+        const options = item.options.map((option, optionIndex) => `
+          <label class="option" data-q="${index}" data-option="${optionIndex}">
+            <input
+              type="${inputType}"
+              name="question-${index}"
+              value="${optionIndex}"
+              aria-label="Question ${index + 1}, option ${optionIndex + 1}"
+            >
+            <span class="option-text">
+              ${String.fromCharCode(65 + optionIndex)}. ${escapeHtml(option)}
+            </span>
+          </label>
+        `).join('');
+
+        return `
+          <article class="question-card" id="question-${index}">
+            <div class="q-head">
+              <span class="q-number">${String(index + 1).padStart(2, '0')}</span>
+              <span class="category">${escapeHtml(item.category)}</span>
+              <span class="mode">${modeLabel}</span>
+            </div>
+            <p class="q-text">${escapeHtml(item.q)}</p>
+            <div class="options">${options}</div>
+            <div class="feedback" id="feedback-${index}"></div>
+          </article>
+        `;
+      }).join('');
+
+      questionList.onchange = updateProgress;
+      updateProgress();
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[char]));
+    }
+
+    function selectedAnswers(index) {
+      return Array.from(
+        document.querySelectorAll(`input[name="question-${index}"]:checked`)
+      )
+        .map(input => Number(input.value))
+        .sort((a, b) => a - b);
+    }
+
+    function sameAnswers(a, b) {
+      return a.length === b.length &&
+        a.every((value, index) => value === b[index]);
+    }
+
+    function updateProgress() {
+      const answered = questions.reduce((total, item, index) =>
+        total + (selectedAnswers(index).length ? 1 : 0), 0);
+
+      progressText.textContent = `${answered} of ${questions.length} answered`;
+      progressFill.style.width =
+        `${answered / questions.length * 100}%`;
+    }
+
+    function checkAnswers() {
+      if (submitted) {
+        document.getElementById('result').scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+        return;
+      }
+
+      let score = 0;
+      let answeredCount = 0;
+
+      questions.forEach((item, index) => {
+        const selected = selectedAnswers(index);
+
+        if (selected.length) {
+          answeredCount++;
+        }
+
+        const correct = sameAnswers(
+          selected,
+          item.answers.slice().sort((a, b) => a - b)
+        );
+
+        if (correct) {
+          score++;
+        }
+
+        const card = document.getElementById(`question-${index}`);
+
+        card.querySelectorAll('.option').forEach(label => {
+          const optionIndex = Number(label.dataset.option);
+          const input = label.querySelector('input');
+
+          input.disabled = true;
+
+          if (item.answers.includes(optionIndex)) {
+            label.classList.add('correct');
+          }
+
+          if (input.checked && !item.answers.includes(optionIndex)) {
+            label.classList.add('wrong-picked');
+          }
+        });
+
+        const correctLetters = item.answers
+          .map(answer => String.fromCharCode(65 + answer))
+          .join(', ');
+
+        const feedback = document.getElementById(`feedback-${index}`);
+        feedback.style.display = 'block';
+
+        feedback.innerHTML = `
+          <strong>
+            ${correct
+              ? '♡ Correct!'
+              : selected.length
+                ? 'Review this one'
+                : 'Not answered yet'}
+          </strong>
+          <span>
+            <b>Correct answer${item.answers.length > 1 ? 's' : ''}:</b>
+            ${correctLetters}. ${escapeHtml(item.explanation)}
+          </span>
+        `;
+      });
+
+      submitted = true;
+
+      document.getElementById('scoreNumber').textContent =
+        `${score} / ${questions.length}`;
+
+      const percent = Math.round(score / questions.length * 100);
+      let message = '';
+
+      if (percent >= 90) {
+        message = 'Amazing work, sweetheart! You really know your stuff. ♡';
+      } else if (percent >= 75) {
+        message = 'So good! You have a strong grasp of the lesson. Keep polishing the little details. ♡';
+      } else if (percent >= 50) {
+        message = 'You are getting there! Review the explanations and give it another try. ♡';
+      } else {
+        message = 'No pressure, this is what practice is for. Read the explanations, take a breath, and try again. ♡';
+      }
+
+      document.getElementById('scoreMessage').textContent = message;
+
+      document.getElementById('scoreDetail').textContent =
+        `${percent}% • ${answeredCount} of ${questions.length} questions answered. Green options show the correct answers; pink-red options show choices to review.`;
+
+      result.style.display = 'block';
+
+      document.getElementById('submitBtn').textContent = 'View my results ♡';
+
+      result.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+
+    function resetQuiz() {
+      submitted = false;
+      renderQuestions();
+      result.style.display = 'none';
+
+      document.getElementById('submitBtn').textContent =
+        'Check my answers ♡';
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', checkAnswers);
+    document.getElementById('resetBtn').addEventListener('click', resetQuiz);
+
+    renderQuestions();
+  </script>
+</body>
+</html>
